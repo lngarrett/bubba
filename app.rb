@@ -2,37 +2,26 @@ require 'sinatra'
 require 'rest-client'
 require 'redis' 
 require 'yaml'
-require 'json'
 require 'thin'
 
 set :server, 'thin'
 $redis = Redis.new
 $config = YAML.load_file('config.yaml')["config"]
 
-$count = 0
-
 Thread.new do # Background tasks
-  #seedRedis
-  #fullCredit
   while true do
     sleep $config["credit"]["interval"]
-    #incrCredit
-    $count += 1
+    incrCredit
   end
 end
 
 get '/' do
-  "Testing background work thread: sum is #{$count}"
+  $put = $redis.hget("cameras:frontcam", :name) + " " + $redis.hget("cameras:frontcam", :credit) + " " + $count.to_s + " " + $config["credit"]["interval"].to_s
+  "#{$put}"
 end
 
-#get '/' do
-#  $put = $redis.hget("cameras:frontcam", :name) + " " + $redis.hget("cameras:frontcam", :credit) + " " + $count.to_s + " " + $config["credit"]["interval"].to_s
-#  "#{$put}"
-#end
-
-get '/:camera/motion' do
-  camera = params[:camera]
-  alertMotion(camera)
+get '/:cameraName/motion' do
+  alertMotion(params["cameraName"])
 end
 
 def pushover(message)
@@ -46,7 +35,6 @@ def seedRedis
   cameras = YAML.load_file('config.yaml')["camera"]
   cameras.each do |camera|
     name = camera['name']
-    hostname = camera['hostname']
     $redis.hsetnx("cameras:#{name}", :name, camera['name'])
     $redis.hsetnx("cameras:#{name}", :hostname, camera['hostname'])
   end
@@ -60,24 +48,36 @@ def fullCredit
   end
 end
 
+#Gloablly increase alert credit by configured increment
 def incrCredit
   cameras = $redis.keys("*cameras*").map { |camera| $redis.hgetall(camera) }
   cameras.each do |camera|
     name = camera["name"]
     credit = camera["credit"]
-    $redis.hincrby("cameras:#{name}", :credit, $config["credit"]["increment"]) unless credit >= $config["credit"]["full"]
+    $redis.hincrby("cameras:#{name}", :credit, $config["credit"]["increment"]) unless credit.to_i >= $config["credit"]["full"]
   end
 end
 
-def decrCredit(camera)
-  credit = camera["credit"]
-  $redis.hincrby("cameras:#{camera}", :credit, -1) unless credit == 0
+#Decrease a camera's alert credit by 1
+def decrCredit(cameraName)
+  camera = getCamera(cameraName)
+  puts "cameras['name']"
+  $redis.hincrby("cameras:#{camera['name']}", :credit, -1) unless camera["credit"].to_i == 0
 end
 
-def alertMotion(camera)
-  credit = $redis.hget("cameras:#{camera}", :credit)
-  if credit.to_i > 0 
-    pushover("#{camera} alert #{credit}")
-    decrCredit(camera)
+#Check for credit and then push alert
+def alertMotion(cameraName)
+  camera = getCamera(cameraName)
+  if camera["credit"].to_i > 0 
+    pushover("#{camera['name']} alert #{camera['credit']}")
+    decrCredit(cameraName)
   end
 end
+
+def getCamera(cameraName)
+  key = "cameras:#{cameraName}"
+  $redis.hgetall(key)
+end
+
+seedRedis
+fullCredit
