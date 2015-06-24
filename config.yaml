@@ -1,0 +1,10 @@
+config:
+  credit:
+    full : 3
+    interval : 600
+    increment : 1
+camera:
+  - name : frontcam
+    hostname : frontcam.shortbus.lan
+  - name : backcam
+    hostname : backcam.shortbus.lan
