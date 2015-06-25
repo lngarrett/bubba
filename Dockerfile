@@ -2,7 +2,7 @@ FROM redis
 MAINTAINER Logan Garrett
 
 RUN apt-get update
-RUN apt-get install -y ruby
+RUN apt-get install -y ruby ruby-dev
 RUN gem install bundler
 
 COPY app.rb /software/
