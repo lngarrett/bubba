@@ -12,6 +12,7 @@ All cameras start with 3 credits. Sending a push alert consumes one credit. Each
     
 ### Set Redis Secrets
 Pushover keys will need to be set in redis before alerts can be sent. Once the redis container is running you can set the secrets.
+
     # docker exec -it cameracontrol_redis_1 /bin/bash
     # redis-cli
     # set "config:pushover:app-key" "YOUR_APP_KEY"
