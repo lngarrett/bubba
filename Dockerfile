@@ -6,6 +6,7 @@ RUN apt-get install -y ruby ruby-bundler
 
 COPY app.rb /software/
 COPY config.yaml /software/
+COPY Gemfile /software/
 
 WORKDIR /software/
 RUN bundle install
