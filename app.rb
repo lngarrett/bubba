@@ -7,6 +7,7 @@ require 'thin'
 
 set :server, 'thin'
 $redis = Redis.new
+redis = Redis.new(:host => "redis", :port => 6379)
 $config = YAML.load_file('config.yaml')["config"]
 
 Thread.new do
