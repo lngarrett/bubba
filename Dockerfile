@@ -3,6 +3,7 @@ MAINTAINER Logan Garrett
 
 RUN apt-get update
 RUN apt-get install -y ruby
+RUN gem install bundler
 
 COPY app.rb /software/
 COPY config.yaml /software/
