@@ -1,7 +1,5 @@
 # camera-control
 
-A quick and simple RESTful API to BIND, written in Ruby / Sinatra. Provides the ability to add/remove entries with an existing BIND DNS architecture.
-
 A quick and simple RESTful API to control the sending of motion alerts for IP cameras. This program uses a leaky bucket alogrithim to reduce the noise from constant motion.
 
 I wrote this as a solution to prevent my phone from exploding with alerts when I was mowing the yard. Dropcam uses a simple 30-minute cooldown on push alerts, but I wanted something that gave me a little more control over how alerts are sent.
