@@ -18,5 +18,5 @@ All cameras start with 3 credits. Sending a push alert consumes one credit. Each
     # set "config:pushover:app-key" "YOUR_APP_KEY"
     # set "config:pushover:user-key" "YOUR_USER_KEY"
 ### Endpoints (In Progress)
-* / - Currently shows some debugging info
-* /:cameraName/motion - triggers an alert if there is credit.
+* `GET /` - Currently shows some debugging info
+* `GET/:cameraName/motion` - triggers an alert if there is credit.
