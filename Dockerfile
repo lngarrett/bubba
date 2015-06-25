@@ -2,12 +2,14 @@ FROM ubuntu:latest
 MAINTAINER Logan Garrett
 
 RUN apt-get update
-RUN apt-get install -y ruby ruby-bundler git
+RUN apt-get install -y ruby ruby-bundler
 
+COPY app.rb /software/
+COPY config.yaml /software/
 
 WORKDIR /software/
-RUN git clone https://github.com/lngarrett/camera-control.git
+RUN bundle install
 
 EXPOSE 80
 
-CMD /usr/bin/ruby app.rb
+CMD ruby app.rb
