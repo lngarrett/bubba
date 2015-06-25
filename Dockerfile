@@ -1,18 +1,8 @@
-FROM redis
-MAINTAINER Logan Garrett
-
-RUN apt-get update
-RUN apt-get install -y ruby ruby-dev
-RUN gem install bundler
-
-COPY app.rb /software/
-COPY config.yaml /software/
-COPY Gemfile /software/
-
-WORKDIR /software/
-RUN bundle install
+FROM ruby:2.1-onbuild
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv C7917B12 && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y redis-server && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 RUN redis-server
-
-EXPOSE 80
-
-CMD ruby app.rb
+CMD ["./app.rb"]
