@@ -1,8 +1,8 @@
-FROM ubuntu:latest
+FROM redis
 MAINTAINER Logan Garrett
 
 RUN apt-get update
-RUN apt-get install -y ruby ruby-bundler redis
+RUN apt-get install -y ruby ruby-bundler
 
 COPY app.rb /software/
 COPY config.yaml /software/
