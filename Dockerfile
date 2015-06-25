@@ -2,7 +2,7 @@ FROM redis
 MAINTAINER Logan Garrett
 
 RUN apt-get update
-RUN apt-get install -y ruby ruby-bundler
+RUN apt-get install -y ruby
 
 COPY app.rb /software/
 COPY config.yaml /software/
