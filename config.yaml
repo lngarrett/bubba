@@ -1,7 +1,7 @@
 config:
   credit:
     full : 3
-    interval : .12
+    interval : 600
     increment : 1
 camera:
   - name : frontcam

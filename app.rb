@@ -8,7 +8,7 @@ set :server, 'thin'
 $redis = Redis.new
 $config = YAML.load_file('config.yaml')["config"]
 
-Thread.new do # Background tasks
+Thread.new do
   while true do
     sleep $config["credit"]["interval"]
     incrCredit
@@ -24,11 +24,11 @@ get '/:cameraName/motion' do
   alertMotion(params["cameraName"])
 end
 
-def pushover(message)
+def pushover(title, message)
   uri = URI.encode("https://api.pushover.net/1/messages.json")
   appKey = $redis.get "config:pushover:app-key"
   userKey = $redis.get "config:pushover:user-key"
-  RestClient.post uri, { :token => appKey, :user => userKey, :message => message }
+  RestClient.post uri, { :token => appKey, :user => userKey, :title => title, :message => message }
 end
 
 def seedRedis
@@ -48,7 +48,6 @@ def fullCredit
   end
 end
 
-#Gloablly increase alert credit by configured increment
 def incrCredit
   cameras = $redis.keys("*cameras*").map { |camera| $redis.hgetall(camera) }
   cameras.each do |camera|
@@ -58,18 +57,20 @@ def incrCredit
   end
 end
 
-#Decrease a camera's alert credit by 1
 def decrCredit(cameraName)
   camera = getCamera(cameraName)
   puts "cameras['name']"
   $redis.hincrby("cameras:#{camera['name']}", :credit, -1) unless camera["credit"].to_i == 0
 end
 
-#Check for credit and then push alert
+# The title string is formatted assuming that cameraName is 
+# {location}cam (frontcam, drivewaycam, etc.). Modify the string if yours is different.
 def alertMotion(cameraName)
   camera = getCamera(cameraName)
-  if camera["credit"].to_i > 0 
-    pushover("#{camera['name']} alert #{camera['credit']}")
+  if camera["credit"].to_i > 0
+    title = cameraName.sub("cam", "").capitalize + " Camera"
+    message = "Motion Detected"
+    pushover(title, message)
     decrCredit(cameraName)
   end
 end
