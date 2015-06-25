@@ -4,5 +4,4 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv C7917B12 && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y redis-server && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-RUN redis-server
-CMD ["./app.rb"]
+CMD ["./run.sh"]

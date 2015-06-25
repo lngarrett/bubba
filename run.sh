@@ -1,0 +1,2 @@
+redis-server
+./app.rb
