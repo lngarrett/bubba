@@ -4,5 +4,7 @@ web:
    - "4567:4567"
   links:
    - redis
+  restart: always
 redis:
   image: redis
+  restart: always
