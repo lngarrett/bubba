@@ -1,4 +1,4 @@
-# camera-control
+# compose-camcontrol
 
 A quick and simple RESTful API to control the sending of motion alerts for IP cameras. This program uses a leaky bucket alogrithim to reduce the noise from constant motion.
 
