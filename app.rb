@@ -71,7 +71,7 @@ def alertMotion(cameraName)
   camera = getCamera(cameraName)
   if camera['credit'].to_i > 0
     title = cameraName.sub('cam', '').capitalize + ' Camera'
-    message = 'Motion Detected'
+    message = "Motion Detected (#{camera[credit]})"
     pushover(title, message)
     decrCredit(cameraName)
   end
