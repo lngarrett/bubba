@@ -3,7 +3,7 @@ config:
     full     : 3
     interval : 1200
     increment: 1
-camera:
+cameras:
   - name    : frontcam
     hostname: frontcam.shortbus.lan
   - name    : backcam
