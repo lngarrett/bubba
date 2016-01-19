@@ -7,17 +7,6 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 ##Leaky Bucket Credits
 All cameras start with, and have a maximum of, 3 credits. Sending a push alert consumes one credit. Each camera gets 1 credit every 10 minutes. When a camera is out of credits it will not send push alerts until it receives more credits. All of these values can be configured in `config.yaml`
 
-## Instructions
-* configre `config.yaml` to match your environment and preferences
-* `docker-compose up`
-    
-### Set Redis Secrets
-Pushover keys will need to be set in redis before alerts can be sent. Once the redis container is running you can set the secrets.
-
-    # docker exec -it cameracontrol_redis_1 /bin/bash
-    # redis-cli
-    # set "config:pushover:app-key" "YOUR_APP_KEY"
-    # set "config:pushover:user-key" "YOUR_USER_KEY"
 ### Endpoints (In Progress)
 * `GET /` - Currently shows some debugging info
-* `GET /{CAMERANAME}/motion` - triggers an alert if there is credit.
+* `/camera/:camera_name/motion` - triggers an alert if there is credit.
