@@ -5,9 +5,18 @@ config:
 cameras:
   - name     : frontcam
     hostname : frontcam.shortbus.lan
+    zip      : 40071
+    state    : KY
   - name     : backcam
     hostname : backcam.shortbus.lan
+    zip      : 40071
+    state    : KY
   - name     : drivewaycam
     hostname : drivewaycam.shortbus.lan
+    zip      : 40071
+    state    : KY
   - name     : wirelesscam
     hostname : wirelesscam.shortbus.lan
+    zip      : 40071
+    state    : KY
+    no_osd   : true

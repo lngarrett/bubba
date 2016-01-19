@@ -6,15 +6,20 @@ module Camera
     user_key = $config['pushover_user_key']
     begin
       response = RestClient.post uri, token: app_key, user: user_key, title: title, message: message
-      $logger.info response.body
+      $logger.debug response.body
     rescue => e
       $logger.error e.response
       e.response
     end
   end
+  def self.find(name)
+    return $cameras.find {|s| s.name == name}
+  end
   class DS2CD2032
+    OVERLAY_PATH = '/Video/inputs/channels/1/overlays/text/1'
+    SHUTTER_PATH = '/Image/channels/1/Shutter'
     @@array = Array.new
-    attr_accessor :name, :hostname, :credits
+    attr_accessor :name, :hostname, :credits, :zip, :state, :no_osd
     def initialize(h)
       h.each {|k,v| send("#{k}=",v)}
       @@array << self
@@ -44,7 +49,24 @@ module Camera
       else
         {message: 'No credits available. Alert not sent.'}.to_json
       end
+    end
 
+    def set_osd(message)
+      xml = '<?xml version="1.0" encoding="UTF-8"?>' \
+             '<TextOverlay version="1.0" xmlns="http://www.hikvision.com/ver10/XMLSchema">' \
+             '<id>1</id>' \
+             '<enabled>true</enabled>' \
+             '<posX>16</posX>' \
+             '<posY>0</posY>' \
+             "<message>#{message}</message>" \
+             '</TextOverlay>'
+      endpoint = "http://#{@hostname}#{OVERLAY_PATH}"
+      begin
+        private_resource = RestClient::Resource.new endpoint, $config['hikvision_username'], $config['hikvision_password']
+        private_resource.put xml, :content_type => 'application/xml'
+      rescue => e
+        $logger.error e.response
+      end
     end
   end
 end
