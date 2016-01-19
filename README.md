@@ -9,4 +9,5 @@ All cameras start with, and have a maximum of, 3 credits. Sending a push alert c
 
 ### Endpoints (In Progress)
 * `GET /camera/:camera_name/motion` - triggers an alert if there is credit.
+* `GET /camera/:camera_name/info` - Shows credits.
 * `POST /camera/:camera_name/environment` - updates temperature and wind. Bubba automatically updates every 10 minutes otherwise.
