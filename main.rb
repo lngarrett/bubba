@@ -27,20 +27,6 @@ $cameras.map! { |camera|
   Camera::DS2CD2032.new(camera)
 }
 
-get '/camera/:camera_name/motion' do
-  $cameras.find {|s| s.name == params['camera_name']}.motion_alert
-end
-
-post '/camera/:camera_name/environment' do
-  camera = Camera.find(params['camera_name'])
-  conditions = JSON.parse(Weather::get(:conditions, camera.zip, camera.state))
-  temp_f        = conditions['current_observation']['temp_c']
-  wind_mph      = conditions['current_observation']['wind_mph']
-  wind_gust_mph = conditions['current_observation']['wind_gust_mph']
-  message = "#{temp_f}°Wind #{wind_mph}/#{wind_gust_mph}MPH"
-  camera.set_osd(message)
-end
-
 Thread.new do
   loop do
     Camera::DS2CD2032.increment_all
@@ -64,4 +50,19 @@ Thread.new do
     $logger.debug "Sleeping 600..."
     sleep 600
   end
+end
+
+
+get '/camera/:camera_name/motion' do
+  $cameras.find {|s| s.name == params['camera_name']}.motion_alert
+end
+
+post '/camera/:camera_name/environment' do
+  camera = Camera.find(params['camera_name'])
+  conditions = JSON.parse(Weather::get(:conditions, camera.zip, camera.state))
+  temp_f        = conditions['current_observation']['temp_c']
+  wind_mph      = conditions['current_observation']['wind_mph']
+  wind_gust_mph = conditions['current_observation']['wind_gust_mph']
+  message = "#{temp_f}°Wind #{wind_mph}/#{wind_gust_mph}MPH"
+  camera.set_osd(message)
 end
