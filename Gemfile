@@ -1,0 +1,5 @@
+gem 'yaml'
+gem 'json'
+gem 'sinatra'
+gem 'thin'
+gem 'rest-client'
