@@ -6,8 +6,13 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 
 ## Configuration
 
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
+
 | Config Item | Details |
-|--|--|
+|-------------|---------|
 | pushover_app_key | The key for your pushover application. [Create app](https://pushover.net/apps/build). |
 | pushover_user_key | Your pushover user key. [View key (requires login)](https://pushover.net/). |
 | wunderground_key | Your wunderground API key. [Get an API key](http://www.wunderground.com/weather/api/d/login.html). |
