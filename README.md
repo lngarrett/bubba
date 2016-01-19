@@ -6,6 +6,9 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 
 ## Configuration
 
+The following environment variables need to be exported before starting Bubba.
+
+#### Environment Variables
 | Config Item | Details |
 |-------------|---------|
 | pushover_app_key   | Pushover application key. [Create app](https://pushover.net/apps/build). |
@@ -14,9 +17,29 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 | hikvision_username | Hikvision web interface. |
 | hikvision_password | Hikvision web interface. |
 
+#### Run with Docker
+
+Docker is the preferred method for deplying Bubba. 
+
+```
+#!/bin/bash
+docker build -t bubba .
+docker rm -f bubba
+docker run \
+  --name="bubba" \
+  --publish=4567:4567 \
+  --env pushover_app_key='bK2YEgZay8ThNGMUm57aQmNnYfx2y3' \
+  --env pushover_user_key='CeRe3B7Gt75uTUJVvBfD8JZKSteafz' \
+  --env wunderground_key='5335cf7b87ef8286' \
+  --env hikvision_username='admin' \
+  --env hikvision_password='password' \
+  --restart="always" \
+  --detach=true \
+  bubba
+```
 
 ## Leaky Bucket Credits
-All cameras start with, and have a maximum of, 3 credits. Sending a push alert consumes one credit. Each camera gets 1 credit every 10 minutes. When a camera is out of credits it will not send push alerts until it receives more credits. All of these values can be configured in `config.yaml`
+All cameras start with, and have a maximum of, 3 credits. Sending a push alert consumes one credit. Each camera gets 1 credit every 20 minutes. When a camera is out of credits it will not send push alerts until it receives more credits. All of these values can be configured in `config.yaml`
 
 ## Endpoints
 * `GET /camera/:camera_name/motion` - triggers an alert if there is credit.
