@@ -30,6 +30,7 @@ $cameras.map! { |camera|
 Thread.new do
   loop do
     Camera::DS2CD2032.increment_all
+    $logger.debug "Incremented credits. Sleeping #{$config['credit_interval']}..."
     sleep $config['credit_interval']
   end
 end
