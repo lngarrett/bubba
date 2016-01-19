@@ -60,7 +60,7 @@ end
 
 get '/camera/:camera_name/info' do
   camera = Camera.find(params['camera_name'])
-  puts "Name: #{camera.name}, Credits: #{camera.credits} "
+  "Name: #{camera.name}, Credits: #{camera.credits} "
 end
 
 post '/camera/:camera_name/environment' do
