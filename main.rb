@@ -14,9 +14,9 @@ $logger = Logger.new(STDOUT)
 $logger.level = Logger::DEBUG
 
 $config  = YAML.load_file('config.yaml')['config']
-$config['pushover_app_key']  = ENV['pushover_app_key']
-$config['pushover_user_key'] = ENV['pushover_user_key']
-$config['wunderground_key'] = ENV['wunderground_key']
+$config['pushover_app_key']   = ENV['pushover_app_key']
+$config['pushover_user_key']  = ENV['pushover_user_key']
+$config['wunderground_key']   = ENV['wunderground_key']
 $config['hikvision_username'] = ENV['hikvision_username']
 $config['hikvision_password'] = ENV['hikvision_password']
 
@@ -29,6 +29,16 @@ $cameras.map! { |camera|
 
 get '/camera/:camera_name/motion' do
   $cameras.find {|s| s.name == params['camera_name']}.motion_alert
+end
+
+post '/camera/:camera_name/environment' do
+  camera = Camera.find(params['camera_name'])
+  conditions = JSON.parse(Weather::get(:conditions, camera.zip, camera.state))
+  temp_f        = conditions['current_observation']['temp_c']
+  wind_mph      = conditions['current_observation']['wind_mph']
+  wind_gust_mph = conditions['current_observation']['wind_gust_mph']
+  message = "#{temp_f}°Wind #{wind_mph}/#{wind_gust_mph}MPH"
+  camera.set_osd(message)
 end
 
 Thread.new do
@@ -48,8 +58,10 @@ Thread.new do
         wind_gust_mph = conditions['current_observation']['wind_gust_mph']
         message = "#{temp_f}°Wind #{wind_mph}/#{wind_gust_mph}MPH"
         camera.set_osd(message)
+        $logger.debug "Updated OSD: #{message}"
       end
     end
+    $logger.debug "Sleeping 60..."
     sleep 60
   end
 end
