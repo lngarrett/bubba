@@ -61,7 +61,7 @@ Thread.new do
         $logger.debug "Updated OSD: #{message}"
       end
     end
-    $logger.debug "Sleeping 60..."
+    $logger.debug "Sleeping 600..."
     sleep 600
   end
 end

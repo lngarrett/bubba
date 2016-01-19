@@ -1,5 +1,4 @@
-gem 'yaml'
-gem 'json'
+source 'https://rubygems.org'
 gem 'sinatra'
 gem 'thin'
 gem 'rest-client'
