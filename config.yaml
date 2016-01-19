@@ -1,4 +1,5 @@
 config:
+<<<<<<< HEAD
   credit_full      : 3
   credit_interval  : 1200
   credit_increment : 1
@@ -11,3 +12,18 @@ cameras:
     hostname : drivewaycam.shortbus.lan
   - name     : wirelesscam
     hostname : wirelesscam.shortbus.lan
+=======
+  credit:
+    full     : 3
+    interval : 1200
+    increment: 1
+cameras:
+  - name    : frontcam
+    hostname: frontcam.shortbus.lan
+  - name    : backcam
+    hostname: backcam.shortbus.lan
+  - name    : drivewaycam
+    hostname: drivewaycam.shortbus.lan
+  - name    : wirelesscam
+    hostname: wirelesscam.shortbus.lan
+>>>>>>> 065fdf5fbbdd89b63d98996590ad78a667ed51b3
