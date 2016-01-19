@@ -62,6 +62,6 @@ Thread.new do
       end
     end
     $logger.debug "Sleeping 60..."
-    sleep 60
+    sleep 600
   end
 end
