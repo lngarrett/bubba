@@ -6,9 +6,14 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 
 ## Configuration
 
+### Config.yaml
+
+`Config.yaml` contains common configuration settings for customizing Bubba.
+
+### Environment Variables
+
 The following environment variables need to be exported before starting Bubba.
 
-#### Environment Variables
 | Config Item | Details |
 |-------------|---------|
 | pushover_app_key   | Pushover application key. [Create app](https://pushover.net/apps/build). |
@@ -17,7 +22,7 @@ The following environment variables need to be exported before starting Bubba.
 | hikvision_username | Hikvision web interface. |
 | hikvision_password | Hikvision web interface. |
 
-#### Run with Docker
+### Run with Docker
 
 Docker is the preferred method for deplying Bubba. 
 
