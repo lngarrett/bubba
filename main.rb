@@ -58,6 +58,11 @@ get '/camera/:camera_name/motion' do
   $cameras.find {|s| s.name == params['camera_name']}.motion_alert
 end
 
+get '/camera/:camera_name/info' do
+  camera = Camera.find(params['camera_name'])
+  puts "Name: #{camera.name}, Credits: #{camera.credits} "
+end
+
 post '/camera/:camera_name/environment' do
   camera = Camera.find(params['camera_name'])
   conditions = JSON.parse(Weather::get(:conditions, camera.zip, camera.state))
