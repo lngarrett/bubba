@@ -11,8 +11,8 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 | pushover_app_key   | Pushover application key. [Create app](https://pushover.net/apps/build). |
 | pushover_user_key  | Pushover user key. [View key (requires login)](https://pushover.net/). |
 | wunderground_key   | Your wunderground API key. [Get an API key](http://www.wunderground.com/weather/api/d/login.html). |
-| hikvision_username | Username for your Hikvision web interface. |
-| hikvision_password | Password for your Hikvision web interface. |
+| hikvision_username | Hikvision web interface. |
+| hikvision_password | Hikvision web interface. |
 
 
 ## Leaky Bucket Credits
