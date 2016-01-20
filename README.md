@@ -41,7 +41,7 @@ The following environment variables need to be exported before starting Bubba.
 
 ### Run with Docker
 
-Docker is the preferred method for deplying Bubba. 
+Docker is the preferred method for deplying Bubba. Replace sample key data with your own.
 
 ```
 #!/bin/bash
