@@ -1,8 +1,14 @@
 # Bubba
 
-A quick and simple RESTful API to control the sending of motion alerts for IP cameras. This program uses a leaky bucket alogrithim to reduce the noise from constant motion.
+Bubba is an API to control the sending of motion alerts for IP cameras and displaying weather on screen. This program uses a leaky bucket alogrithim to reduce the noise from constant motion.
 
 I wrote this as a solution to prevent my phone from exploding with alerts when I was mowing the yard. Dropcam uses a simple 30-minute cooldown on push alerts, but I wanted something that gave me a little more control over how alerts are sent.
+
+Bubba utilizes Pushover and Wunderground for alerting and weather data respectively. Weather data is currently updated on screen every 10 minutes.
+
+##### Future Functionality:
+* Change camera settings based on time of day.
+* Combine wind data with motion alert requests to filter out wind-induced motion alerts.
 
 ## Configuration
 
