@@ -10,7 +10,7 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 
 `Config.yaml` contains common configuration settings for customizing Bubba.
 
-| config           |  Description  |
+| Key           |  Description  |
 |------------------|---------------|
 | **credit_full**      | The maximum number of alert credits a camera can hold. |
 | **credit_interval**  | The number of seconds before a camera will gain credit. |
@@ -25,13 +25,13 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 
 The following environment variables need to be exported before starting Bubba.
 
-| Config Item | Details |
+| Variable | Details |
 |-------------|---------|
-| pushover_app_key   | Pushover application key. [Create app](https://pushover.net/apps/build). |
-| pushover_user_key  | Pushover user key. [View key (requires login)](https://pushover.net/). |
-| wunderground_key   | Your wunderground API key. [Get an API key](http://www.wunderground.com/weather/api/d/login.html). |
-| hikvision_username | Hikvision web interface. |
-| hikvision_password | Hikvision web interface. |
+| **pushover_app_key**   | Pushover application key. [Create app](https://pushover.net/apps/build). |
+| **pushover_user_key**  | Pushover user key. [View key (requires login)](https://pushover.net/). |
+| **wunderground_key**   | Your wunderground API key. [Get an API key](http://www.wunderground.com/weather/api/d/login.html). |
+| **hikvision_username** | Hikvision web interface. |
+| **hikvision_password** | Hikvision web interface. |
 
 ### Run with Docker
 
