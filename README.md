@@ -12,7 +12,7 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 
 | config           |  Description  |
 |------------------|---------------|
-| credit_full      | The maximum number of alert credits a camera can hold. |
+| *credit_full*      | The maximum number of alert credits a camera can hold. |
 | credit_interval  | The number of seconds before a camera will gain credit. |
 | credit_increment | The number of credits granted at the `credit_interval` |
 | name             | Camera name. |
