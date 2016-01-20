@@ -13,13 +13,13 @@ I wrote this as a solution to prevent my phone from exploding with alerts when I
 | config           |  Description  |
 |------------------|---------------|
 | **credit_full**      | The maximum number of alert credits a camera can hold. |
-| credit_interval  | The number of seconds before a camera will gain credit. |
-| credit_increment | The number of credits granted at the `credit_interval` |
-| name             | Camera name. |
-| hostname         | Camera hostname or IP. Used to make API calls. |
-| zip              | Location of camera. Used for weather. |
-| state            | Location of camera. Used for weather. |
-| no_osd           | If this is `true` then Bubba will not try to update on-screen-display. Currently Bubba only supports OSD Hikvision cameras. Setting this to true will prevent issues when using a non Hikvision camera. |
+| **credit_interval**  | The number of seconds before a camera will gain credit. |
+| **credit_increment** | The number of credits granted at the `credit_interval` |
+| **name**             | Camera name. |
+| **hostname**         | Camera hostname or IP. Used to make API calls. |
+| **zip**              | Location of camera. Used for weather. |
+| **state**            | Location of camera. Used for weather. |
+| **no_osd**           | If this is `true` then Bubba will not try to update on-screen-display. Currently Bubba only supports OSD Hikvision cameras. Setting this to true will prevent issues when using a non Hikvision camera. |
 
 ### Environment Variables
 
