@@ -29,6 +29,7 @@ $cameras.map! { |camera|
 
 Thread.new do
   loop do
+    $logger.debug "Waking to increment credits"
     Camera::DS2CD2032.increment_all
     $logger.debug "Incremented credits. Sleeping #{$config['credit_interval']}..."
     sleep $config['credit_interval']
@@ -37,6 +38,7 @@ end
 
 Thread.new do
   loop do
+    $logger.debug "Waking to check weather."
     $cameras.each do |camera|
       unless camera.no_osd
         conditions = JSON.parse(Weather::get(:conditions, camera.zip, camera.state))
