@@ -1,13 +1,19 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.4.0)
     daemons (1.2.3)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
     eventmachine (1.0.9.1)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
+    httparty (0.13.7)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.3)
     mime-types (2.99)
+    multi_xml (0.5.5)
     netrc (0.11.0)
     rack (1.6.4)
     rack-protection (1.5.3)
@@ -28,6 +34,10 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
+    wunderground (1.2.0)
+      addressable
+      httparty (> 0.6.0)
+      json (> 1.4.0)
 
 PLATFORMS
   ruby
@@ -36,6 +46,7 @@ DEPENDENCIES
   rest-client
   sinatra
   thin
+  wunderground
 
 BUNDLED WITH
    1.11.2
