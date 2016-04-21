@@ -85,3 +85,7 @@ post '/camera/:camera_name/environment' do
   message = "#{temp_f}°Wind #{wind_mph}/#{wind_gust_mph}MPH"
   camera.set_osd(message)
 end
+
+get '/'
+  'bump'
+end
