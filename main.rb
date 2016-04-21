@@ -6,12 +6,16 @@ require 'camera'
 require 'weather'
 require 'sinatra'
 require 'thin'
+require 'wunderground'
 
-set :server, 'thin'
-set :bind, '0.0.0.0'
+
+# set :server, 'thin'
+# set :bind, '0.0.0.0'
 
 $logger = Logger.new(STDOUT)
 $logger.level = Logger::DEBUG
+
+$sum = 0
 
 $config  = YAML.load_file('config.yaml')['config']
 $config['pushover_app_key']   = ENV['pushover_app_key']
@@ -41,20 +45,27 @@ Thread.new do
     $logger.debug "Waking to check weather."
     $cameras.each do |camera|
       unless camera.no_osd
-        conditions = JSON.parse(Weather::get(:conditions, camera.zip, camera.state))
+        begin
+          conditions = Weather::get(camera.zip)
+        rescue => e
+          $logger.error "Could not get conditions for #{camera.name}: #{e.message}"
+        end
         temp_f        = conditions['current_observation']['temp_f']
         wind_mph      = conditions['current_observation']['wind_mph']
         wind_gust_mph = conditions['current_observation']['wind_gust_mph']
         message = "#{temp_f}°Wind #{wind_mph}/#{wind_gust_mph}MPH"
-        camera.set_osd(message)
-        $logger.debug "Updated OSD: #{message}"
+        begin
+          camera.set_osd(message)
+          $logger.debug "Updated OSD: #{message}"
+        rescue => e
+          $logger.error "Could not sed OSD on #{camera.name}: #{e.message}"
+        end
       end
     end
-    $logger.debug "Sleeping 600..."
+    $logger.debug "Sleeping 10 minutes..."
     sleep 600
   end
 end
-
 
 get '/camera/:camera_name/motion' do
   $cameras.find {|s| s.name == params['camera_name']}.motion_alert

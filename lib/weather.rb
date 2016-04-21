@@ -1,17 +1,12 @@
 require 'rest-client'
 module Weather
-  def self.get (type, zip, state)
-    location = "/q/#{state}/#{zip}.json"
-    path = 'astronomy'
-    path = 'geolookup/conditions' if type == :conditions
-    path << location
-    uri = URI.encode("http://api.wunderground.com/api/#{$config["wunderground_key"]}/#{path}")
+  def self.get (zip)
     begin
-      response = RestClient.get uri
-      response.body
+      w_api = Wunderground.new
+      w_api.conditions_for(zip)
     rescue => e
       $logger.error e.response
-      e.response
+      false
     end
   end
 end
