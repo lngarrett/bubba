@@ -9,8 +9,8 @@ require 'thin'
 require 'wunderground'
 
 
-# set :server, 'thin'
-# set :bind, '0.0.0.0'
+set :server, 'thin'
+set :bind, '0.0.0.0'
 
 $logger = Logger.new(STDOUT)
 $logger.level = Logger::DEBUG
