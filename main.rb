@@ -86,6 +86,6 @@ post '/camera/:camera_name/environment' do
   camera.set_osd(message)
 end
 
-get '/'
+get '/' do
   'bump'
 end
