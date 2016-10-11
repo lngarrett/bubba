@@ -4,19 +4,19 @@ config:
   credit_increment : 1
 cameras:
   - name     : frontcam
-    hostname : frontcam.shortbus.lan
+    hostname : frontcam.whisk.ee
     zip      : 40071
     state    : KY
   - name     : backcam
-    hostname : backcam.shortbus.lan
+    hostname : backcam.whisk.ee
     zip      : 40071
     state    : KY
   - name     : drivewaycam
-    hostname : drivewaycam.shortbus.lan
+    hostname : drivewaycam.whisk.ee
     zip      : 40071
     state    : KY
   - name     : wirelesscam
-    hostname : wirelesscam.shortbus.lan
+    hostname : wirelesscam.whisk.ee
     zip      : 40071
     state    : KY
     no_osd   : true
